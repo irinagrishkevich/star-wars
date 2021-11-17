@@ -12,10 +12,18 @@ export default class RandomPlanet extends Component {
     loading: true,
   }
 
-  constructor() {
-    super()
+  // constructor() {
+  //   super()
+  //   console.log('constructor()')
+
+  // }
+
+  componentDidMount() {
     this.updatePlanet()
+    this.interval = setInterval(this.updatePlanet, 3500)
+    // clearInterval(this.interval)
   }
+  componentWillUnmount() {}
 
   onPlanetLoaded = (planet) => {
     this.setState({ planet, loading: false, error: false })
@@ -29,8 +37,8 @@ export default class RandomPlanet extends Component {
     })
   }
 
-  updatePlanet() {
-    const id = Math.floor(Math.random() * 25 + 2)
+  updatePlanet = () => {
+    const id = Math.floor(Math.random() * 20 + 3)
     this.swapiService
       .getPlanet(id)
       .then(this.onPlanetLoaded)
@@ -81,6 +89,7 @@ const PlanetView = ({ planet }) => {
             <span>{diameter}</span>
           </li>
         </ul>
+        <button>Toogle</button>
       </div>
     </React.Fragment>
   )
